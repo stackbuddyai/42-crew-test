@@ -105,21 +105,78 @@ Calculation breakdown:
 
 ## Running the Tests
 
+### Basic Test Run
 To run the function and see all test results:
 
 ```bash
 python estimate_crew.py
 ```
 
+### Pytest Test Suite
+For comprehensive testing with pytest:
+
+```bash
+# Install pytest (if not already installed)
+pip install pytest
+
+# Run all tests
+pytest test_estimate_crew.py -v
+
+# Run with detailed output
+pytest test_estimate_crew.py --tb=short
+
+# Run specific test
+pytest test_estimate_crew.py::TestEstimateCrew::test_primary_case -v
+```
+
+### Pytest Test Results
+
+```
+=========================================== test session starts ===========================================
+platform win32 -- Python 3.11.0, pytest-7.4.3, pluggy-1.6.0
+rootdir: D:\workspace\42-crew-test
+plugins: anyio-3.7.1, asyncio-0.21.1, cov-4.1.0
+asyncio: mode=Mode.STRICT
+collected 9 items
+
+test_estimate_crew.py::TestEstimateCrew::test_primary_case PASSED                                    [ 11%]
+test_estimate_crew.py::TestEstimateCrew::test_base_crew PASSED                                       [ 22%]
+test_estimate_crew.py::TestEstimateCrew::test_volume_threshold PASSED                                [ 33%]
+test_estimate_crew.py::TestEstimateCrew::test_bulky_items PASSED                                     [ 44%]
+test_estimate_crew.py::TestEstimateCrew::test_stair_flights PASSED                                   [ 55%]
+test_estimate_crew.py::TestEstimateCrew::test_long_distance PASSED                                   [ 66%]
+test_estimate_crew.py::TestEstimateCrew::test_combined_factors PASSED                                [ 77%]
+test_estimate_crew.py::TestEstimateCrew::test_edge_cases PASSED                                      [ 88%]
+test_estimate_crew.py::TestEstimateCrew::test_negative_values PASSED                                 [100%]
+
+============================================ 9 passed in 0.03s ============================================
+```
+
+### Test Coverage
+
+The pytest test suite includes:
+
+- **Primary test case**: `estimate_crew(550, 3, 2, False) = 4`
+- **Base functionality**: Base crew size verification
+- **Volume threshold**: Testing the 480 cubic feet boundary
+- **Bulky items**: Testing all ranges (0-1, 2-3, 4-5, etc.)
+- **Stair flights**: Testing the 3+ flights threshold
+- **Long distance**: Testing the boolean flag
+- **Combined factors**: Testing multiple conditions together
+- **Edge cases**: Zero values, large values
+- **Negative values**: Handling edge cases with negative inputs
+
 ## Requirements
 
 - Python 3.6 or higher
-- No external dependencies required
+- pytest >= 7.0.0 (for running the test suite)
 
 ## File Structure
 
 ```
 42-crew-test/
-├── estimate_crew.py    # Main function implementation
-└── README.md          # This documentation
+├── estimate_crew.py      # Main function implementation
+├── test_estimate_crew.py # Pytest test suite
+├── requirements.txt      # Python dependencies
+└── README.md            # This documentation
 ```
